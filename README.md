@@ -65,3 +65,118 @@ Esta aplicación es una demostración básica y no implementa medidas avanzadas 
 
 Siéntete libre de contribuir a este proyecto o sugerir mejoras. Para cualquier consulta o problema, por favor abre un issue en este repositorio.
 
+¿Que es CRUD?
+Es el acrónimo de Create (Crear), Read (Leer), Update (Actualizar) y Delete (Borrar).
+
+Ejemplos de la aplicacion del CRUD:
+
+1.Aplicaciones de gestión de contenido
+
+2.Aplicaciones de comercio electrónico
+
+3.Sistemas de reservas
+
+4.Aplicaciones de redes sociales
+
+5.Aplicaciones de gestión de proyectos
+
+Ejemplos Crear:
+
+<title>Crear Registro</title>
+Crear Registro
+Nombre:
+Edad:
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+$nombre = $_POST['nombre'];
+$edad = $_POST['edad'];
+
+$sql = "INSERT INTO tabla (nombre, edad) VALUES ('$nombre', '$edad')";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Registro creado correctamente";
+} else {
+    echo "Error al crear el registro: " . $conn->error;
+}
+
+$conn->close();
+} ?>
+
+Leer:
+
+<title>Ver Registros</title>
+Registros
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+$sql = "SELECT id, nombre, edad FROM tabla";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        echo "ID: " . $row["id"]. " - Nombre: " . $row["nombre"]. " - Edad: " . $row["edad"]. "<br>";
+    }
+} else {
+    echo "0 resultados";
+}
+
+$conn->close();
+?>
+Actualizar:
+
+<title>Actualizar Registro</title>
+Actualizar Registro
+ID del Registro a Actualizar:
+Nuevo Nombre:
+Nueva Edad:
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+$id = $_POST['id'];
+$nombre = $_POST['nombre'];
+$edad = $_POST['edad'];
+
+$sql = "UPDATE tabla SET nombre='$nombre', edad='$edad' WHERE id=$id";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Registro actualizado correctamente";
+} else {
+    echo "Error al actualizar el registro: " . $conn->error;
+}
+
+$conn->close();
+} ?>
+
+Eliminar:
+
+<title>Eliminar Registro</title>
+Eliminar Registro
+ID del Registro a Eliminar:
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+$id = $_POST['id'];
+
+$sql = "DELETE FROM tabla WHERE id=$id";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Registro eliminado correctamente";
+} else {
+    echo "Error al eliminar el registro: " . $conn->error;
+}
+
+$conn->close();
+} ?>
